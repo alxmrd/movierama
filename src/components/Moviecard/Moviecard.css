@@ -1,0 +1,22 @@
+.Moviecard-table {
+  background-color: #d3e4cd;
+  width: 80%;
+  margin: 4rem;
+}
+
+.Moviecard-table th,
+.Moviecard-table td {
+  padding: 0.5rem;
+  color: black;
+}
+
+.Moviecard-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #99a799;
+  color: white;
+}
+
+.Moviecard-table tbody tr:nth-of-type(2n + 1) {
+  background-color: white;
+}
