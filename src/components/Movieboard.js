@@ -11,6 +11,7 @@ function Movieboard() {
   async function getData() {
     try {
       const moviesData = await api.getNowPlayingMoviesWithGenres();
+
       setMovies(moviesData);
       setLoading(false);
     } catch (e) {

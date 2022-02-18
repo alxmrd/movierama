@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { getGenreNames } from "../../utils/genreNamesProvider";
 import { getDate } from "../../utils/yearProvider";
 import "./Moviecard.css";
 
@@ -29,7 +30,7 @@ function Moviecard({ movies }) {
                 </td>
                 <td>{movie.title}</td>
                 <td>{getDate(movie.release_date)}</td>
-                <td>{movie.title}</td>
+                <td>{getGenreNames(movie.genreInfos)}</td>
                 <td>{movie.vote_average}</td>
                 <td>{movie.overview}</td>
               </tr>
