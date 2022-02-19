@@ -1,12 +1,12 @@
 .Moviecard-table {
   background-color: #d3e4cd;
   width: 80%;
-  margin: 4rem;
+  margin: 0 4rem 0 4rem;
 }
 
 .Moviecard-table th,
 .Moviecard-table td {
-  padding: 0.5rem;
+  padding: 0.8rem;
   color: black;
 }
 
@@ -17,6 +17,13 @@
   color: white;
 }
 
+.Moviecard-table tbody {
+  text-align: center;
+}
+
 .Moviecard-table tbody tr:nth-of-type(2n + 1) {
   background-color: white;
+}
+.Moviecard-table tbody tr:nth-of-type(2n) {
+  background-color: #dbf1d3;
 }

@@ -1,3 +1,5 @@
 export function getDate(releaseDate) {
-  return releaseDate.slice(0, releaseDate.indexOf("-"));
+  if (Boolean(releaseDate)) {
+    return releaseDate.slice(0, releaseDate.indexOf("-"));
+  }
 }

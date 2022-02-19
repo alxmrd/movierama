@@ -1,7 +1,7 @@
 export function getGenreNames(genreDataArr) {
   let genreNamesArray = [];
 
-  genreDataArr.map((genre) => {
+  genreDataArr?.map((genre) => {
     return genreNamesArray.push(genre.name);
   });
 

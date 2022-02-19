@@ -4,10 +4,6 @@ import { getDate } from "../../utils/yearProvider";
 import "./Moviecard.css";
 
 function Moviecard({ movies }) {
-  if (!movies || movies.length === 0) {
-    return <div>No movies loaded</div>;
-  }
-
   return (
     <div className="Moviecard">
       <table className="Moviecard-table">
