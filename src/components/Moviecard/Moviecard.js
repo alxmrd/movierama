@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { getGenreNames } from "../../utils/genreNamesProvider";
+import { getImages } from "../../utils/imagesProvider";
 import { getDate } from "../../utils/yearProvider";
 import "./Moviecard.css";
 
@@ -22,7 +23,7 @@ function Moviecard({ movies }) {
             <Fragment>
               <tr key={movie.id}>
                 <td>
-                  <img src={movie.poster_path} width="100" alt />
+                  <img src={getImages(movie.poster_path)} width={100} alt />
                 </td>
                 <td>{movie.title}</td>
                 <td>{getDate(movie.release_date)}</td>
