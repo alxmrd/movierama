@@ -10,60 +10,55 @@ function Movieboard() {
   const [error, setError] = useState(false);
   const [movies, setMovies] = useState([]);
   const [movieInfos, setMovieInfos] = useState([]);
-  const [searchedMovies, setSearchedMovies] = useState([]);
+  //const [searchedMovies, setSearchedMovies] = useState([]);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [isFetching, setIsFetching] = useInfinityScroll(getMoreData);
+  const [isFetching, setIsFetching] = useInfinityScroll(handlePage);
   const [expandedRowId, setExpandedMovieId] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
-  let moviesData;
   async function getData() {
-    if (Boolean(query)) {
-      let searchedMoviesApi = await api.getSearchOnMovies(page, query);
-      setSearchedMovies(searchedMoviesApi);
+    setLoading(true);
+    setIsFetching(true);
 
-      moviesData = await moviesWithGenres(
-        searchedMovies,
-        await api.getGenres()
-      );
-      if (Boolean(searchedMovies.results.length) === 0) {
-        moviesData = await moviesWithGenres(
-          await api.getNowPlayingMovies(page),
-          await api.getGenres()
-        );
-      }
-    } else {
-      moviesData = await moviesWithGenres(
-        await api.getNowPlayingMovies(page),
-        await api.getGenres()
-      );
-    }
-    setMovies(moviesData);
-    setLoading(false);
-    setPage(page + 1);
-  }
-  async function getMoreData() {
-    if (Boolean(query)) {
-      moviesData = await moviesWithGenres(
+    if (isSearching) {
+      const searchedMovies = await moviesWithGenres(
         await api.getSearchOnMovies(page, query),
         await api.getGenres()
       );
+
+      setMovies((prevMovies) => {
+        return [...prevMovies, ...searchedMovies];
+      });
     } else {
-      moviesData = await moviesWithGenres(
+      const moviesData = await moviesWithGenres(
         await api.getNowPlayingMovies(page),
         await api.getGenres()
       );
+      setMovies((prevMovies) => {
+        return [...prevMovies, ...moviesData];
+      });
     }
 
-    setMovies([...movies, ...moviesData]);
-    setPage(page + 1);
+    setLoading(false);
     setIsFetching(false);
+    // setMovies(moviesData);
+    // setLoading(false);
+    // setPage(page + 1);
   }
+
+  function handlePage() {
+    setPage((prevPage) => prevPage + 1);
+  }
+  //   setMovies([...movies, ...moviesData]);
+  //   setPage(page + 1);
+  //   setIsFetching(false);
+  // }
 
   useEffect(() => {
     getData();
-  }, [query]);
+  }, [query, page]);
 
   const expanderRowClicked = (movieId, isExpandedRow) => {
     setIsExpanded(isExpandedRow);
@@ -104,7 +99,10 @@ function Movieboard() {
         placeholder="Search movies..."
         value={query}
         onChange={(e) => {
+          setPage(1);
           setQuery(e.target.value);
+          setMovies([]);
+          setIsSearching(Boolean(e.target.value.length));
         }}
       />
       <div className="Movieboard">
