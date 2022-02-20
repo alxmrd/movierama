@@ -60,37 +60,35 @@ function Movieboard() {
     getData();
   }, [query, page]);
 
-  const expanderRowClicked = (movieId, isExpandedRow) => {
-    setIsExpanded(isExpandedRow);
-    if (movieId === expandedRowId && Boolean(isExpandedRow)) {
-      setIsExpanded(!isExpanded);
-    } else if (movieId !== expandedRowId) {
-      setIsExpanded(isExpanded);
+  const expanderRowClicked = (movieId) => {
+    if (movieId === expandedRowId) {
+      setIsExpanded((prevIsExpanded) => !prevIsExpanded);
+    } else {
+      setIsExpanded(true);
     }
     setExpandedMovieId(movieId);
     getMovieInfos(movieId);
   };
 
   async function getMovieInfos(movieId) {
-    const movieVideos = await api
-      .getMovieVideos(movieId)
-      .catch((e) => setError(e.message));
+    const calls = [
+      api.getMovieVideos(movieId),
+      api.getMovieReviews(movieId),
+      api.getMovieSimilar(movieId),
+    ];
 
-    const movieReviews = await api
-      .getMovieReviews(movieId)
-      .catch((e) => setError(e.message));
+    try {
+      const [videos, reviews, similar] = await Promise.all(calls);
 
-    const movieSimilar = await api
-      .getMovieSimilar(movieId)
-      .catch((e) => setError(e.message));
-
-    const movieInfosData = {
-      videos: await movieVideos,
-      reviews: await movieReviews,
-      similar: await movieSimilar,
-    };
-
-    setMovieInfos(movieInfosData);
+      const movieInfosData = {
+        videos,
+        reviews,
+        similar,
+      };
+      setMovieInfos(movieInfosData);
+    } catch (e) {
+      setError(e.message);
+    }
   }
 
   return (

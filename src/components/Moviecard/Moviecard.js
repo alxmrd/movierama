@@ -41,7 +41,7 @@ function Moviecard({
                 <td>
                   <button
                     onClick={() => {
-                      expandedRowIdClicked(movie.id, !isExpanded);
+                      expandedRowIdClicked(movie.id);
                     }}
                   >
                     alex
