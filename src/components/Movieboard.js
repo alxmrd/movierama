@@ -13,6 +13,24 @@ function Movieboard() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useInfinityScroll(getMoreData);
+  const [expandedRows, setExpandedRows] = useState([]);
+  const [expandState, setExpandState] = useState({});
+
+  const handleEpandRow = (event, movieId) => {
+    const currentExpandedRows = expandedRows;
+    const isRowExpanded = currentExpandedRows.includes(movieId);
+
+    let obj = {};
+    isRowExpanded ? (obj[movieId] = false) : (obj[movieId] = true);
+    setExpandState(obj);
+
+    const newExpandedRows = isRowExpanded
+      ? currentExpandedRows.filter((id) => id !== movieId)
+      : currentExpandedRows.concat(movieId);
+
+    setExpandedRows(newExpandedRows);
+  };
+
   let moviesData;
   async function getData() {
     if (Boolean(query)) {
@@ -68,6 +86,12 @@ function Movieboard() {
     getData();
   }, [query]);
 
+  const expanderRowClicked = (movieId, index) => {
+    // the callback. Use a better name
+    console.log(index);
+    console.log(movieId);
+  };
+
   return (
     <div>
       <input
@@ -78,7 +102,16 @@ function Movieboard() {
         }}
       />
       <div className="Movieboard">
-        <main>{loading ? <div>alex</div> : <Moviecard movies={movies} />}</main>
+        <main>
+          {loading ? (
+            <div>alex</div>
+          ) : (
+            <Moviecard
+              movies={movies}
+              expandedRowIdClicked={expanderRowClicked}
+            />
+          )}
+        </main>
         {isFetching && <h1>"Fetching more list items..."</h1>}
       </div>
     </div>

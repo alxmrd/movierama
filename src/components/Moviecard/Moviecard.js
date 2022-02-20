@@ -4,7 +4,7 @@ import { getImages } from "../../utils/imagesProvider";
 import { getDate } from "../../utils/yearProvider";
 import "./Moviecard.css";
 
-function Moviecard({ movies }) {
+function Moviecard({ movies, expandedRowIdClicked }) {
   return (
     <div className="Moviecard">
       <table className="Moviecard-table">
@@ -20,7 +20,7 @@ function Moviecard({ movies }) {
           </tr>
         </thead>
         <tbody>
-          {movies.map((movie) => (
+          {movies.map((movie, index) => (
             <Fragment>
               <tr key={movie.id}>
                 <td>
@@ -34,10 +34,10 @@ function Moviecard({ movies }) {
                 <td>
                   <button
                     onClick={() => {
-                      console.log("geia");
+                      expandedRowIdClicked(movie.id, index);
                     }}
                   >
-                    Click to expand
+                    alex
                   </button>
                 </td>
               </tr>
