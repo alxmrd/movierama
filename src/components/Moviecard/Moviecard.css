@@ -31,3 +31,8 @@
 .Moviecard-table tbody tr:hover {
   background-color: lightgray;
 }
+
+.Moviecard-table th,
+.Moviecard-table td .expanded_row {
+  padding: 0;
+}

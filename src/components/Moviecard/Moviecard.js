@@ -3,12 +3,14 @@ import { getGenreNames } from "../../utils/genreNamesProvider";
 import { getImages } from "../../utils/imagesProvider";
 import { getDate } from "../../utils/yearProvider";
 import "./Moviecard.css";
+import "./ExpandedCard.css";
 
 function Moviecard({
   movies,
   expandedRowIdClicked,
   isExpanded,
   expandedRowId,
+  movieInfos,
 }) {
   return (
     <div className="Moviecard">
@@ -25,7 +27,7 @@ function Moviecard({
           </tr>
         </thead>
         <tbody>
-          {movies.map((movie, index) => (
+          {movies.map((movie) => (
             <Fragment>
               <tr key={movie.id}>
                 <td>
@@ -39,7 +41,7 @@ function Moviecard({
                 <td>
                   <button
                     onClick={() => {
-                      expandedRowIdClicked(movie.id, true);
+                      expandedRowIdClicked(movie.id, !isExpanded);
                     }}
                   >
                     alex
@@ -50,46 +52,25 @@ function Moviecard({
               {Boolean(isExpanded) && movie.id === expandedRowId ? (
                 <tr>
                   <td colspan="7">
-                    <div
-                      style={{
-                        backgroundColor: "#343A40",
-                        color: "#FFF",
-                        padding: "10px",
-                      }}
-                    >
-                      <h2> Details </h2>
-                      <ul>
-                        <li>
-                          <span>
-                            <b>Full Name:</b>
-                          </span>
-                        </li>
-                        <li>
-                          <span>
-                            <b>Company:</b>
-                          </span>
-                        </li>
-                        <li>
-                          <span>
-                            <b>Department:</b>
-                          </span>
-                        </li>
-                        <li>
-                          <span>
-                            <b>Ip:</b>
-                          </span>
-                        </li>
-                        <li>
-                          <span>
-                            <b>Best Movie:</b>
-                          </span>
-                        </li>
-                        <li>
-                          <span>
-                            <b>About:</b>
-                          </span>
-                        </li>
-                      </ul>
+                    <div class="row">
+                      <div class="column">Videos</div>
+                      <div class="column">Similar</div>
+                      {movieInfos?.reviews?.results?.map((review) => (
+                        <div>
+                          <table className="Moviecard-table">
+                            <thead>
+                              <tr>
+                                <th> {review.author}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr key={review.id}>
+                                <td>{review.content}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      ))}
                     </div>
                   </td>
                 </tr>

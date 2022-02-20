@@ -9,12 +9,13 @@ function Movieboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [movieInfos, setMovieInfos] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useInfinityScroll(getMoreData);
   const [expandedRowId, setExpandedMovieId] = useState("");
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   let moviesData;
   async function getData() {
@@ -65,11 +66,37 @@ function Movieboard() {
   }, [query]);
 
   const expanderRowClicked = (movieId, isExpandedRow) => {
-    setExpandedMovieId(movieId);
+    setIsExpanded(isExpandedRow);
     if (movieId === expandedRowId && Boolean(isExpandedRow)) {
       setIsExpanded(!isExpanded);
+    } else if (movieId !== expandedRowId) {
+      setIsExpanded(isExpanded);
     }
+    setExpandedMovieId(movieId);
+    getMovieInfos(movieId);
   };
+
+  async function getMovieInfos(movieId) {
+    const movieVideos = await api
+      .getMovieVideos(movieId)
+      .catch((e) => setError(e.message));
+
+    const movieReviews = await api
+      .getMovieReviews(movieId)
+      .catch((e) => setError(e.message));
+
+    const movieSimilar = await api
+      .getMovieSimilar(movieId)
+      .catch((e) => setError(e.message));
+
+    const movieInfosData = {
+      videos: await movieVideos,
+      reviews: await movieReviews,
+      similar: await movieSimilar,
+    };
+
+    setMovieInfos(movieInfosData);
+  }
 
   return (
     <div>
@@ -83,13 +110,14 @@ function Movieboard() {
       <div className="Movieboard">
         <main>
           {loading ? (
-            <div>alex</div>
+            <h2>Loading</h2>
           ) : (
             <Moviecard
               movies={movies}
               expandedRowIdClicked={expanderRowClicked}
               isExpanded={isExpanded}
               expandedRowId={expandedRowId}
+              movieInfos={movieInfos}
             />
           )}
         </main>
