@@ -13,30 +13,14 @@ function Movieboard() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useInfinityScroll(getMoreData);
-  const [expandedRows, setExpandedRows] = useState([]);
-  const [expandState, setExpandState] = useState({});
-
-  const handleEpandRow = (event, movieId) => {
-    const currentExpandedRows = expandedRows;
-    const isRowExpanded = currentExpandedRows.includes(movieId);
-
-    let obj = {};
-    isRowExpanded ? (obj[movieId] = false) : (obj[movieId] = true);
-    setExpandState(obj);
-
-    const newExpandedRows = isRowExpanded
-      ? currentExpandedRows.filter((id) => id !== movieId)
-      : currentExpandedRows.concat(movieId);
-
-    setExpandedRows(newExpandedRows);
-  };
+  const [expandedRowId, setExpandedMovieId] = useState("");
+  const [isExpanded, setIsExpanded] = useState(true);
 
   let moviesData;
   async function getData() {
     if (Boolean(query)) {
       let searchedMoviesApi = await api.getSearchOnMovies(page, query);
       setSearchedMovies(searchedMoviesApi);
-      console.log(searchedMoviesApi, "alex");
 
       moviesData = await moviesWithGenres(
         searchedMovies,
@@ -76,19 +60,15 @@ function Movieboard() {
     setIsFetching(false);
   }
 
-  async function getSearchedData() {
-    console.log(query);
-    const moviesData = await api.getSearchOnMovies(page, query);
-    console.log("movies", moviesData);
-  }
-
   useEffect(() => {
     getData();
   }, [query]);
 
-  const expanderRowClicked = (movieId, index) => {
-    // the callback. Use a better name
-    console.log(index);
+  const expanderRowClicked = (movieId, isExpandedRow) => {
+    if (movieId === expandedRowId && Boolean(isExpandedRow)) {
+      setIsExpanded(!isExpanded);
+    }
+    setExpandedMovieId(movieId);
     console.log(movieId);
   };
 
@@ -109,6 +89,8 @@ function Movieboard() {
             <Moviecard
               movies={movies}
               expandedRowIdClicked={expanderRowClicked}
+              isExpanded={isExpanded}
+              expandedRowId={expandedRowId}
             />
           )}
         </main>

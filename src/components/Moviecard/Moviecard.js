@@ -4,7 +4,12 @@ import { getImages } from "../../utils/imagesProvider";
 import { getDate } from "../../utils/yearProvider";
 import "./Moviecard.css";
 
-function Moviecard({ movies, expandedRowIdClicked }) {
+function Moviecard({
+  movies,
+  expandedRowIdClicked,
+  isExpanded,
+  expandedRowId,
+}) {
   return (
     <div className="Moviecard">
       <table className="Moviecard-table">
@@ -34,13 +39,61 @@ function Moviecard({ movies, expandedRowIdClicked }) {
                 <td>
                   <button
                     onClick={() => {
-                      expandedRowIdClicked(movie.id, index);
+                      expandedRowIdClicked(movie.id, true);
                     }}
                   >
                     alex
                   </button>
                 </td>
               </tr>
+
+              {Boolean(isExpanded) && movie.id === expandedRowId ? (
+                <tr>
+                  <td colspan="7">
+                    <div
+                      style={{
+                        backgroundColor: "#343A40",
+                        color: "#FFF",
+                        padding: "10px",
+                      }}
+                    >
+                      <h2> Details </h2>
+                      <ul>
+                        <li>
+                          <span>
+                            <b>Full Name:</b>
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <b>Company:</b>
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <b>Department:</b>
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <b>Ip:</b>
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <b>Best Movie:</b>
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <b>About:</b>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              ) : null}
             </Fragment>
           ))}
         </tbody>
