@@ -65,11 +65,10 @@ function Movieboard() {
   }, [query]);
 
   const expanderRowClicked = (movieId, isExpandedRow) => {
+    setExpandedMovieId(movieId);
     if (movieId === expandedRowId && Boolean(isExpandedRow)) {
       setIsExpanded(!isExpanded);
     }
-    setExpandedMovieId(movieId);
-    console.log(movieId);
   };
 
   return (
