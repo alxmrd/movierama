@@ -16,6 +16,7 @@ function Moviecard({ movies }) {
             <th>Genre(s)</th>
             <th>Vote average</th>
             <th>Overview</th>
+            <th>More Infos</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,15 @@ function Moviecard({ movies }) {
                 <td>{getGenreNames(movie.genreInfos)}</td>
                 <td>{movie.vote_average}</td>
                 <td>{movie.overview}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      console.log("geia");
+                    }}
+                  >
+                    Click to expand
+                  </button>
+                </td>
               </tr>
             </Fragment>
           ))}

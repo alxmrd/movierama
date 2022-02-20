@@ -1,8 +1,9 @@
-export async function nowPlayingMoviesWithGenres(nowPlayingMovies, genresMap) {
+export async function moviesWithGenres(moviesMap, genresMap) {
   //loop through now playing movies
-  return nowPlayingMovies.results.map((movie) => {
+  return moviesMap.results.map((movie) => {
     let moviesWithGenres = {};
     let genreInfos = [];
+    console.log(moviesMap, "map");
 
     if (Boolean(movie.genre_ids.length)) {
       //loop through each genre id

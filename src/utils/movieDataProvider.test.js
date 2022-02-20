@@ -1,4 +1,4 @@
-import { nowPlayingMoviesWithGenres } from "./movieDataProvider";
+import { moviesWithGenres } from "./movieDataProvider";
 
 describe("If there are no genre ids ", () => {
   it("return the movies without genre infos", async () => {
@@ -125,7 +125,7 @@ describe("If there are no genre ids ", () => {
       },
     ];
 
-    expect(await nowPlayingMoviesWithGenres(movies, genres)).toStrictEqual(
+    expect(await moviesWithGenres(movies, genres)).toStrictEqual(
       expectedResult
     );
   });
@@ -261,7 +261,7 @@ describe("If there are genre ids ", () => {
       },
     ];
 
-    expect(await nowPlayingMoviesWithGenres(movies, genres)).toStrictEqual(
+    expect(await moviesWithGenres(movies, genres)).toStrictEqual(
       expectedResult
     );
   });

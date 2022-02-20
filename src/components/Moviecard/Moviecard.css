@@ -27,3 +27,7 @@
 .Moviecard-table tbody tr:nth-of-type(2n) {
   background-color: #dbf1d3;
 }
+
+.Moviecard-table tbody tr:hover {
+  background-color: lightgray;
+}
