@@ -1,6 +1,6 @@
 # Movierama
 
-A simple React App which fetches some mocies and displays them to a table list. Each movie item should expand to preview further information about each movie. Also, this app displays includes a search box input with live updates on movies list depend on search input.
+A simple React App which fetches some movies and displays them to a table list. Each movie item should expand to preview further information about each movie. Also, this app displays includes a search box input with live updates on movies list depend on search input.
 
 ## Getting Started
 
