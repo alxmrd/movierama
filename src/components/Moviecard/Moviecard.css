@@ -1,38 +1,126 @@
 .Moviecard-table {
-  background-color: #d3e4cd;
-  width: 80%;
+  font-family: "lato", sans-serif;
+  background-color: #bd4b4b;
   margin: 0 4rem 0 4rem;
+  border-radius: 15px;
+  border-collapse: collapse;
 }
 
 .Moviecard-table th,
-.Moviecard-table td {
+.Moviecard-table td:not(:first-child) {
   padding: 0.8rem;
-  color: black;
+  color: #1b1717;
 }
 
-.Moviecard-table thead {
-  position: sticky;
-  top: 0;
-  background-color: #99a799;
-  color: white;
-}
-
-.Moviecard-table tbody {
+.Moviecard-table td:not(:nth-last-child(2)) {
   text-align: center;
 }
 
-.Moviecard-table tbody tr:nth-of-type(2n + 1) {
-  background-color: white;
+.Moviecard-table thead th {
+  padding: 10px;
+  top: 0;
+  color: #1b1717;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
+
+.Moviecard-table thead th:last-child {
+  white-space: nowrap;
+}
+
+.Moviecard-table tbody {
+  height: 100px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.Moviecard-table tbody tr {
+  letter-spacing: 0.5px;
+  line-height: 20px;
+}
+
+.Moviecard-table tbody tr:nth-of-type(2n + 1) {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+}
+
 .Moviecard-table tbody tr:nth-of-type(2n) {
-  background-color: #dbf1d3;
+  background-color: #efb7b7;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
 }
 
 .Moviecard-table tbody tr:hover {
-  background-color: lightgray;
+  background-color: #ebcfcf;
 }
 
 .Moviecard-table th,
 .Moviecard-table td .expanded_row {
   padding: 0;
+}
+
+.Moviecard-table img {
+  margin: 5px;
+  border-radius: 20px;
+}
+
+.Moviecard button {
+  background: none;
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  position: relative;
+  font-size: 50px;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  padding: 0;
+}
+
+.Moviecard .plus,
+.Moviecard .minus {
+  color: #fff;
+  padding: 10px;
+  width: 70px;
+  height: 70px;
+  line-height: 50px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  box-sizing: border-box;
+  transition: 0.5s all ease-out;
+}
+
+.Moviecard .plus {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.Moviecard button.active .plus {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.Moviecard .minus {
+  opacity: 100;
+  transform: rotate(180deg);
+}
+
+.Moviecard button.active .minus {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.Moviecard .plus i,
+.Moviecard .minus i {
+  color: #2c3e50;
+}
+
+.Moviecard-table span {
+  letter-spacing: 0.03em;
+  text-align: center;
 }

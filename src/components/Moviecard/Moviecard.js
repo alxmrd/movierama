@@ -31,7 +31,7 @@ function Moviecard({
             <Fragment>
               <tr key={movie.id}>
                 <td>
-                  <img src={getImages(movie.poster_path)} width={100} alt />
+                  <img src={getImages(movie.poster_path)} width={180} alt />
                 </td>
                 <td>{movie.title}</td>
                 <td>{getDate(movie.release_date)}</td>
@@ -39,41 +39,69 @@ function Moviecard({
                 <td>{movie.vote_average}</td>
                 <td>{movie.overview}</td>
                 <td>
-                  <button
-                    onClick={() => {
-                      expandedRowIdClicked(movie.id);
-                    }}
-                  >
-                    alex
-                  </button>
+                  {Boolean(isExpanded) ? (
+                    <button
+                      onClick={() => {
+                        expandedRowIdClicked(movie.id);
+                      }}
+                    >
+                      <span class="minus">
+                        <i class="fa fa-minus"></i>
+                      </span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        expandedRowIdClicked(movie.id);
+                      }}
+                    >
+                      <span class="plus">
+                        <i class="fa fa-plus"></i>
+                      </span>
+                    </button>
+                  )}
                 </td>
               </tr>
 
               {Boolean(isExpanded) && movie.id === expandedRowId ? (
-                <tr>
-                  <td colspan="7">
-                    <div class="row">
-                      <div class="column">Videos</div>
-                      <div class="column">Similar</div>
-                      {movieInfos?.reviews?.results?.map((review) => (
-                        <div>
-                          <table className="Moviecard-table">
-                            <thead>
-                              <tr>
-                                <th> {review.author}</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr key={review.id}>
-                                <td>{review.content}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      ))}
+                <div>
+                  {movieInfos?.reviews?.results?.slice(0, 2).map((review) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        marginBottom: "20px",
+                        padding: "10px",
+                      }}
+                    >
+                      <h1
+                        style={{
+                          marginBottom: "10px",
+                        }}
+                      >
+                        REVIEWS
+                      </h1>
+                      <h2
+                        style={{
+                          marginBottom: "20px",
+                        }}
+                      >
+                        {review.author.toUpperCase()}
+                      </h2>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                        }}
+                        key={review.id}
+                      >
+                        <span class="item">{review.content}</span>
+                      </div>
                     </div>
-                  </td>
-                </tr>
+                  ))}
+                </div>
               ) : null}
             </Fragment>
           ))}

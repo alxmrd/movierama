@@ -1,4 +1,8 @@
 .App {
-  background-color: darkgrey;
-  align-content: center;
+  background-image: linear-gradient(to bottom, #2c3e50, #4ca1af);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
 }

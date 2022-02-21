@@ -3,7 +3,6 @@ export async function moviesWithGenres(moviesMap, genresMap) {
   return moviesMap.results.map((movie) => {
     let moviesWithGenres = {};
     let genreInfos = [];
-    console.log(moviesMap, "map");
 
     if (Boolean(movie.genre_ids.length)) {
       //loop through each genre id
