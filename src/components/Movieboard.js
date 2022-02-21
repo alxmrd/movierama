@@ -113,7 +113,7 @@ function Movieboard() {
             {loading ? (
               ""
             ) : noMoviesFound ? (
-              <h1>No Movies found...</h1>
+              <h1>No Movies found</h1>
             ) : (
               <Moviecard
                 movies={movies}

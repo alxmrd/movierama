@@ -12,6 +12,9 @@ function Moviecard({
   expandedRowId,
   movieInfos,
 }) {
+  if (!movies || movies.length === 0) {
+    return <h2>Loading...</h2>;
+  }
   return (
     <div className="Moviecard">
       <table className="Moviecard-table">
