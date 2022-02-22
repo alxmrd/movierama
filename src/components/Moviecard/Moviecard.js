@@ -42,31 +42,27 @@ function Moviecard({
                 <td>{movie.vote_average}</td>
                 <td>{movie.overview}</td>
                 <td>
-                  {Boolean(isExpanded) ? (
+                  {
                     <button
                       onClick={() => {
                         expandedRowIdClicked(movie.id);
                       }}
                     >
-                      <span class="minus">
-                        <i class="fa fa-minus"></i>
-                      </span>
+                      {movie.id === expandedRowId && isExpanded ? (
+                        <span class="minus">
+                          <i class="fa fa-minus"></i>
+                        </span>
+                      ) : (
+                        <span class="plus">
+                          <i class="fa fa-plus"></i>
+                        </span>
+                      )}
                     </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        expandedRowIdClicked(movie.id);
-                      }}
-                    >
-                      <span class="plus">
-                        <i class="fa fa-plus"></i>
-                      </span>
-                    </button>
-                  )}
+                  }
                 </td>
               </tr>
 
-              {Boolean(isExpanded) && movie.id === expandedRowId ? (
+              {isExpanded && movie.id === expandedRowId ? (
                 <div>
                   {movieInfos?.reviews?.results?.slice(0, 2).map((review) => (
                     <div
